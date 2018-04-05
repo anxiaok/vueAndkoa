@@ -2,6 +2,7 @@
 
 > A Vue.js project
 
+
 ## 从头开始搭建项目步骤
 
 ```
@@ -33,7 +34,7 @@
 
 # 安装请求需要的包
 6. npm i axios babel-polyfill -D
-    
+
     # 在main.js中添加 :
     import axios from 'axios';
     Vue.prototype.$http = axios;
@@ -48,7 +49,7 @@
       template: '<App/>'
     });
 
-    # 在build/webpack.prod.conf.js中修改babel-polyfill配置
+    # 在build/webpack.base.conf.js中修改babel-polyfill配置
     entry: {
       app: ["babel-polyfill", './src/main.js']
     },
@@ -58,16 +59,16 @@
       'process.env': require('../config/dev.env'),
        BASE_URL:"'/json'"     // json可以自定义;此处配置的是开发环境url
     })
-    
+
     # 在build/webpack.prod.conf.js中找到webpack.DefinePlugin并添加:
     new webpack.DefinePlugin({
       'process.env': env,
        BASE_URL:"'/'"          //此处配置的是生产环境url
     })
-    
+
     # 在main.js中添加：axios.defaults.baseURL = BASE_URL;
 
-    #在config/index.js中添加代理:
+    #在config/index.js中dev下添加代理:
     proxyTable: {
       '/json': {
         target: 'http://local.wanfangdata.com.cn:8084', //目标接口地址
@@ -93,9 +94,9 @@
 
 #修改dist输出目录
 8. #在config/index.js中修改build:
-    
+
     //自定义输出index.html的目录
-    index: path.resolve(__dirname, '../../web/src/main/webapp/dist/index.html'),  
+    index: path.resolve(__dirname, '../../web/src/main/webapp/dist/index.html'),
 
     //自定义输出css,js,font等目录
     assetsRoot: path.resolve(__dirname, '../../web/src/main/webapp/dist'),
